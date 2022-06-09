@@ -10,7 +10,7 @@ class Devuelve_productos extends Conexion{
 
     }
 
-    public function get_productos(){
+    public function get_productos(){ //ALL
 
         
 
@@ -29,7 +29,26 @@ class Devuelve_productos extends Conexion{
 
         $this->conexion_db = null;
     }
-    public function insert_productos($datos){
+    public function get_producto($dato){ //JUST ONE
+
+        //echo $dato;
+
+        $sql = "SELECT id_producto codigo,nombre_producto nombre, referencia_producto referencia, precio_producto precio, 
+        peso_producto peso,nombre_categoria categoria, cantidad_producto cantidad, id_categoria FROM productos p, categorias c WHERE
+        p.id_categoria_producto = c.id_categoria AND id_producto = :producto ";
+        $sentencia = $this->conexion_db->prepare($sql);
+
+        $sentencia->execute(array('producto'=> $dato));
+
+        $result = $sentencia->fetch(PDO::FETCH_OBJ);
+
+        $sentencia->closeCursor();
+
+        return $result;
+
+        $this->conexion_db = null;
+    }
+    public function insert_productos($datos){ //INSERT 
 
 
         $sql = "INSERT INTO PRODUCTOS VALUES('0',:nombre,:ref,:prec,:pes,:cate,:cant, CURDATE()) ";
@@ -51,7 +70,7 @@ class Devuelve_productos extends Conexion{
 
         $this->conexion_db = null;
     }
-    public function edit_productos($datos,$id){
+    public function edit_productos($datos,$id){ //UPDATE
 
 
         $sql = "
@@ -74,24 +93,26 @@ class Devuelve_productos extends Conexion{
 
         $this->conexion_db = null;
     }
-    public function get_producto($dato){
+    public function delete_productos($id){ //DELETE
 
-        //echo $dato;
 
-        $sql = "SELECT id_producto codigo,nombre_producto nombre, referencia_producto referencia, precio_producto precio, 
-        peso_producto peso,nombre_categoria categoria, cantidad_producto cantidad, id_categoria FROM productos p, categorias c WHERE
-        p.id_categoria_producto = c.id_categoria AND id_producto = :producto ";
+        $sql = "DELETE FROM PRODUCTOS WHERE id_producto = :id";
+        //echo "<<".$id;
+        //echo $sql;
         $sentencia = $this->conexion_db->prepare($sql);
+        $sentencia->execute(array(':id'=> $id));
 
-        $sentencia->execute(array('producto'=> $dato));
-
-        $result = $sentencia->fetch(PDO::FETCH_OBJ);
-
+        $sql2 = "DELETE FROM INVENTARIOS WHERE id_producto = :idactual ";
+        $sentencia = $this->conexion_db->prepare($sql2);
+        $sentencia->execute(array(':idactual' => $id));
+            
         $sentencia->closeCursor();
-
-        return $result;
+        
+        //$result = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+        //return $result;
 
         $this->conexion_db = null;
     }
+    
 
 } ?>

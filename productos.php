@@ -2,16 +2,24 @@
 
 require("productosdb.php");
 
-if(isset($_POST) && isset($_POST['nombre'])){
+if(isset($_POST) && $_POST != null ){
+    
     $productoEnviado = array();
     $produc2 = new Devuelve_productos();
-    array_push($productoEnviado,$_POST['nombre'],$_POST['referencia'],$_POST['precio'],$_POST['peso'],$_POST['categoria']
-    ,$_POST['cantidad']);
-    if(isset($_POST['e'])){ //SI EXISTE EL PRODUCTO,EDITAR
-        $produc2->edit_productos($productoEnviado,$_POST['e']);
-    }else{  //CREAR
-        $produc2->insert_productos($productoEnviado);
+
+    if(isset($_POST['x'])){  //ELIMINAR
+        $produc2->delete_productos($_POST['x']);
+    }else{
+            array_push($productoEnviado,$_POST['nombre'],$_POST['referencia'],$_POST['precio'],$_POST['peso'],$_POST['categoria']
+            ,$_POST['cantidad']);
+        if(isset($_POST['e'])){ //SI EXISTE EL PRODUCTO,EDITAR
+            $produc2->edit_productos($productoEnviado,$_POST['e']);
+        }else{ //CREAR
+            $produc2->insert_productos($productoEnviado);
+        }
     }
+
+    
 }
 
 

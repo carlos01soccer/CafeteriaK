@@ -101,3 +101,6 @@ p{
     align-content: center;
     border-radius: 20px;
 }
+label{
+    background-color: whitesmoke;
+}
