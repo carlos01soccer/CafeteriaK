@@ -1,0 +1,25 @@
+body{
+    font-family: 'Bahnschrift';
+    text-align: center;
+    background-image: url("../img/fondo.jpg");
+    background-size: cover;
+    background-size: 60rem;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;  
+}
+
+h1{
+    font-family: 'Calisto MT';
+    color: darkblue;
+    text-decoration: underline;
+    text-shadow: 2px -2px white;
+}
+
+.contenedor{
+
+    margin: 2px, 40px, 2px, 40px;
+    background-color: greenyellow;
+    align-content: center;
+    border-radius: 20px;
+}
