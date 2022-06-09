@@ -1,9 +1,22 @@
 <?php 
 
-require ("producto/productosdb.php");
+require("productosdb.php");
+
+if(isset($_POST) && isset($_POST['nombre'])){
+    $productoEnviado = array();
+    $produc2 = new Devuelve_productos();
+    array_push($productoEnviado,$_POST['nombre'],$_POST['referencia'],$_POST['precio'],$_POST['peso'],$_POST['categoria']
+    ,$_POST['cantidad']);
+    if(isset($_POST['e'])){ //SI EXISTE EL PRODUCTO,EDITAR
+        $produc2->edit_productos($productoEnviado,$_POST['e']);
+    }else{  //CREAR
+        $produc2->insert_productos($productoEnviado);
+    }
+}
+
+
 
 $produc = new Devuelve_productos();
-
 $array_productos = $produc->get_productos();
 
 ?>
@@ -16,22 +29,36 @@ $array_productos = $produc->get_productos();
     <title>Cafeteria - Productos</title>
     <link rel="stylesheet" type="text/css" href="css/estilos.css">
 </head>
+<script>
+
+function editar(cod){
+    //console.log("producto/editar_producto.php?n="+cod);
+    window.location.href = "producto/editar_producto.php?n="+cod;
+}
+function eliminar(cod){
+
+    //console.log("producto/eliminar_producto.php?n="+cod);
+    window.location.href = "producto/eliminar_producto.php?n="+cod;
+}
+
+
+</script>
 <body>
     <h1>CAFETERIA KONECTA</h1>
     <h2>PRODUCTOS</h2>
     <table>
         <tr>
-            <td colspan="4">
+            <td colspan="7">
                 <a href="producto/crear_producto.php"><button class="boton1">NUEVO PRODUCTO</button></a> 
             </td>
-            <td>&nbsp;</td>
         </tr>
         <tr>
-        <td>PRODUCTO</td>
-        <td>REFERENCIA</td>
-        <td>PRECIO</td>
-        <td>CATEGORIA</td>
-        <td>CANTIDAD EN INVENTARIO</td>
+        <th>PRODUCTO</th>
+        <th>REFERENCIA</th>
+        <th>PRECIO</th>
+        <th>CATEGORIA</th>
+        <th>CANTIDAD EN INVENTARIO</th>
+        <th colspan="2">FUNCIONES</th>
         </tr>
         <?php 
           foreach($array_productos as $elemento){
@@ -42,12 +69,13 @@ $array_productos = $produc->get_productos();
             <td>$ <?= $elemento['precio'] ?> COP</td>
             <td><?= $elemento['categoria'] ?></td>
             <td><?= $elemento['cantidad'] ?></td>
+            <td><input type="button" id ="botoneditar" value="Editar" onClick="editar(<?= $elemento['codigo']; ?>)" /></td>
+            <td><input type="button" id="botoneliminar" value="Eliminar" onClick="eliminar(<?= $elemento['codigo']; ?>)" /></td>
         </tr>
         <?php } ?>
-    <tr><td colspan="4">
+    <tr><td colspan="7" style="text-align:left;">
     <a href="index.php"><button class="botonvolver">VOLVER</button></a> 
     </td>
-    <td>&nbsp;</td></tr>
 </table>
 </body>
 </html>

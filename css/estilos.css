@@ -9,12 +9,15 @@ body{
     background-attachment: fixed;  
 }
 table{
-    border: 2px solid darkblue;
+    
     margin: 0 auto;
     background: lightgrey;
 }
+th{
+    border: 2px dashed darkblue;
+}
 td{
-    border: 2px solid darkblue;
+    border: 3px solid darkblue;
 }
 
 
@@ -28,7 +31,6 @@ h1{
 h2{
     font-family: 'Calisto MT';
     color: darkblue;
-    text-decoration: underline;
     text-shadow: 2px -2px white;
 }
 
