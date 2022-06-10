@@ -19,7 +19,12 @@ estan en el archivo inventariosdb.php en sus respectivas funciones
 
 Finalmente por cuestiones de tiempo obviamente no se puede hacer un 100%
 en cuanto al diseño, el user_experience y falta por hacer unas validaciones 
-para que el sistema no se rompa
+para que el sistema no se rompa, esto incluía:
+
+*Adicion de bootstrap para los diseños
+*Adicion de ajax para peticiones asincronas a la base de datos
+*Adicion de validaciones extras para que no se dañe lo mas probable
+al hacer todas las pruebas algunos datos
 
 ---------------------------------------------------------
 PASOS PARA INSTALACIÓN Y MARCHA EN PRUEBA
